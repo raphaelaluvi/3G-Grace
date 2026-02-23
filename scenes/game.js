@@ -12,8 +12,12 @@ export class GameScene extends Phaser.Scene {
         this.load.image("paisagem", "./assets/paisagem.png");
         this.load.spritesheet("grace_sprite", "./assets/spritesheetGrace.png", { frameWidth: 64, frameHeight: 64 });
         this.load.image("plataforma", "./assets/plataforma.png");
+        this.load.image("bug", "./assets/bug.png");
     }
     create() {
+
+        this.pontuacao = 0;
+
         //coordenada horizontal, vertical e dps o 'caminho'
         this.add.image(this.larguraJogo / 2, this.alturaJogo / 2, "paisagem").setScale(0.6);
 
@@ -38,6 +42,29 @@ export class GameScene extends Phaser.Scene {
 
         //captura qual seta entrou
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        // placar
+        this.placar = this.add.text(50, 50, 'Pontuacao:' + this.pontuacao, { fontSize: '45px', fill: '#495613' });
+
+        this.bug = this.physics.add.sprite(this.larguraJogo / 3, 0, 'bug');
+        this.bug.setCollideWorldBounds(true);
+        this.bug.setScale(0.3);
+        this.physics.add.collider(this.bug, this.plataformas[0]);
+        this.physics.add.collider(this.bug, this.plataformas[1]);
+
+        this.physics.add.overlap(this.player, this.bug, () => {
+            
+            this.bug.setVisible(false);
+
+            var posicaoBug_Y = Phaser.Math.RND.between(50, 650);
+            this.bug.setPosition(posicaoBug_Y, 100);
+
+            this.pontuacao += 1;
+            this.placar.setText('Pontuacao: ' + this.pontuacao);
+
+            this.bug.setVisible(true);
+        })
+
 
         // animações da personagem
 
@@ -92,6 +119,13 @@ export class GameScene extends Phaser.Scene {
         }
         if (this.cursors.down.isDown) {
             this.player.setVelocityY(400);
+        }
+
+        // verifica a pontuacao
+        if (this.pontuacao >= 5) {
+            this.scene.stop('MainScene');
+            // comeca a cena endscene e passa o data
+            this.scene.start('EndScene', "ganhou");
         }
     }
 }

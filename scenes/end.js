@@ -7,6 +7,7 @@ export class EndScene extends Phaser.Scene {
         super("EndScene");
     }
 
+    // setar uma variavel de resultado q aparece em outra cena
     init(data) {
         this.resultado = data.resultado;
     }
@@ -22,15 +23,15 @@ export class EndScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(this.larguraJogo/2, this.alturaJogo/2, "computador");
-        this.add.image(this.larguraJogo/2, 205, "grace").setScale(0.15);
-        this.botaoMenu = this.add.image(this.larguraJogo/2 - 100, 320, "menu").setScale(0.2).setInteractive();
-        this.botaoRestart = this.add.image(this.larguraJogo/2 + 100, 320, "restart").setScale(0.2).setInteractive();
+        this.add.image(this.larguraJogo / 2, this.alturaJogo / 2, "computador");
+        this.add.image(this.larguraJogo / 2, 205, "grace").setScale(0.15);
+        this.botaoMenu = this.add.image(this.larguraJogo / 2 - 100, 320, "menu").setScale(0.2).setInteractive();
+        this.botaoRestart = this.add.image(this.larguraJogo / 2 + 100, 320, "restart").setScale(0.2).setInteractive();
 
         this.botaoMenu.on("pointerover", () => {
             this.input.setDefaultCursor("pointer");
         });
-        
+
         this.botaoMenu.on("pointerout", () => {
             this.input.setDefaultCursor("default");
         });
@@ -42,7 +43,7 @@ export class EndScene extends Phaser.Scene {
         this.botaoRestart.on("pointerover", () => {
             this.input.setDefaultCursor("pointer");
         });
-        
+
         this.botaoRestart.on("pointerout", () => {
             this.input.setDefaultCursor("default");
         });
@@ -52,11 +53,11 @@ export class EndScene extends Phaser.Scene {
             this.scene.start("MainScene");
         })
 
-        if (this.resultado === "ganhou"){
-            this.add.image(this.larguraJogo/2, 130, "ganhou").setScale(0.25);
+        if (this.resultado === "ganhou") {
+            this.add.image(this.larguraJogo / 2, 130, "ganhou").setScale(0.25);
         }
-        if (this.resultado === "perdeu"){
-            this.add.image(this.larguraJogo/2, 130, "perdeu").setScale(0.25);
+        if (this.resultado === "perdeu") {
+            this.add.image(this.larguraJogo / 2, 130, "perdeu").setScale(0.25);
         }
     }
 

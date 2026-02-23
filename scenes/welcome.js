@@ -4,6 +4,7 @@ export class WelcomeScene extends Phaser.Scene {
     larguraJogo = 800;
 
     constructor() {
+        // nome da cena
         super("WelcomeScene");
     }
 
@@ -17,20 +18,23 @@ export class WelcomeScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(this.larguraJogo/2, this.alturaJogo/2, "computador");
-        this.add.image(this.larguraJogo/2, 130, "titulo").setScale(0.25);
-        this.add.image(this.larguraJogo/2, 205, "grace").setScale(0.15);
-        this.add.image(this.larguraJogo/2, 350, "descricao").setScale(0.4);
-        this.botaoJogar = this.add.image(this.larguraJogo/2, 290, "play").setScale(0.2).setInteractive();
+        this.add.image(this.larguraJogo / 2, this.alturaJogo / 2, "computador");
+        this.add.image(this.larguraJogo / 2, 130, "titulo").setScale(0.25);
+        this.add.image(this.larguraJogo / 2, 205, "grace").setScale(0.15);
+        this.add.image(this.larguraJogo / 2, 350, "descricao").setScale(0.4);
+        this.botaoJogar = this.add.image(this.larguraJogo / 2, 290, "play").setScale(0.2).setInteractive();
 
+        //quando passa pelo botao
         this.botaoJogar.on("pointerover", () => {
             this.input.setDefaultCursor("pointer");
         });
-        
+
+        //quando sai pelo botao
         this.botaoJogar.on("pointerout", () => {
             this.input.setDefaultCursor("default");
         });
 
+        //quando clica o botao
         this.botaoJogar.on("pointerdown", () => {
             this.scene.start("MainScene")
         })

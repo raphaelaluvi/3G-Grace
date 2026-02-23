@@ -22,13 +22,13 @@ export class GameScene extends Phaser.Scene {
 
         this.musica = this.sound.add("musicaFundo");
         this.musica.play({
-            loop: true,  
-            volume: 0.05 
-        });
+            loop: true,
+            volume: 0.05
+        });
 
-        this.add.image(this.larguraJogo/2, this.alturaJogo/2, "paisagem").setScale(0.6);
+        this.add.image(this.larguraJogo / 2, this.alturaJogo / 2, "paisagem").setScale(0.6);
 
-        this.player = this.physics.add.sprite(this.larguraJogo/2, 100, 'grace_sprite').setScale(1.3);
+        this.player = this.physics.add.sprite(this.larguraJogo / 2, 100, 'grace_sprite').setScale(1.3);
         this.player.setCollideWorldBounds(true);
 
         this.plataformas[0] = this.physics.add.staticImage(200, 450, 'plataforma');
@@ -39,31 +39,32 @@ export class GameScene extends Phaser.Scene {
         this.plataformas[1].body.setSize(148, 44, true);
         this.plataformas[1].setScale(0.3);
 
-        for (let i = 0; i < this.plataformas.length; i++){
+        for (let i = 0; i < this.plataformas.length; i++) {
             this.physics.add.collider(this.player, this.plataformas[i]);
         }
-        
+
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.placar = this.add.text(50, 50, 'Pontuacao:' + this.pontuacao, {fontSize:'45px', fill:'#495613'});
+        // placar
+        this.placar = this.add.text(50, 50, 'Pontuacao:' + this.pontuacao, { fontSize: '45px', fill: '#495613' });
 
-        this.bug = this.physics.add.sprite(this.larguraJogo/3, 0, 'bug');
+        this.bug = this.physics.add.sprite(this.larguraJogo / 3, 0, 'bug');
         this.bug.setCollideWorldBounds(true);
         this.bug.setScale(0.3);
         this.physics.add.collider(this.bug, this.plataformas[0]);
         this.physics.add.collider(this.bug, this.plataformas[1]);
 
-        this.physics.add.overlap(this.player, this.bug, () => { 
+        this.physics.add.overlap(this.player, this.bug, () => {
 
             this.bug.setVisible(false);
 
             var posicaoBug_Y = Phaser.Math.RND.between(50, 650);
-            this.bug.setPosition(posicaoBug_Y, 100); 
+            this.bug.setPosition(posicaoBug_Y, 100);
 
             this.pontuacao += 1;
             this.placar.setText('Pontuacao: ' + this.pontuacao);
 
-            this.bug.setVisible(true); 
+            this.bug.setVisible(true);
 
         });
 
@@ -106,7 +107,7 @@ export class GameScene extends Phaser.Scene {
             }
         }
 
-        if (this.cursors.up.isDown) { 
+        if (this.cursors.up.isDown) {
             this.player.setVelocityY(-400);
         }
 
@@ -114,7 +115,7 @@ export class GameScene extends Phaser.Scene {
             this.player.setVelocityY(400);
         }
 
-        if (this.pontuacao >= 5){
+        if (this.pontuacao >= 5) {
             this.scene.stop('MainScene');
             this.scene.start('EndScene', "ganhou");
         }

@@ -20,7 +20,8 @@ const config = {
             debug: true
         }
     },
-    scene: [GameScene]
+    // puxa as cenas
+    scene: [WelcomeScene, GameScene, EndScene]
 };
 
 const game = new Phaser.Game(config);
