@@ -2,7 +2,6 @@ import { GameScene } from "./scenes/game.js";
 import { WelcomeScene } from "./scenes/welcome.js";
 import { EndScene } from "./scenes/end.js";
 
-//teste
 const config = {
     type: Phaser.AUTO,
     width: 800,
